@@ -162,7 +162,7 @@ To save data with a unique, auto-generated, timestamp-based key, use the ```push
 
 ```python
 data = {"name": "Mortimer 'Morty' Smith"}
-db.child("users").push(data)
+db.child("users").push(data, user['idToken'])
 ```
 
 #### set
@@ -171,7 +171,7 @@ To create your own keys use the ```set()``` method. The key in the example below
 
 ```python
 data = {"name": "Mortimer 'Morty' Smith"}
-db.child("users").child("Morty").set(data)
+db.child("users").child("Morty").set(data, user['idToken'])
 ```
 
 #### update
@@ -228,7 +228,7 @@ db.update(data)
 Queries return a PyreResponse object. Calling ```val()``` on these objects returns the query data.
 
 ```
-users = db.child("users").get()
+users = db.child("users").get( user['idToken'])
 print(users.val()) # {"Morty": {"name": "Mortimer 'Morty' Smith"}, "Rick": {"name": "Rick Sanchez"}}
 ```
 
@@ -244,7 +244,7 @@ print(user.key()) # users
 Returns a list of objects on each of which you can call ```val()``` and ```key()```.
 
 ```
-all_users = db.child("users").get()
+all_users = db.child("users").get( user['idToken'])
 for user in all_users.each():
     print(user.key()) # Morty
     print(user.val()) # {name": "Mortimer 'Morty' Smith"}
@@ -255,7 +255,7 @@ for user in all_users.each():
 To return data from a path simply call the ```get()``` method.
 
 ```python
-all_users = db.child("users").get()
+all_users = db.child("users").get( user['idToken'])
 ```
 
 #### shallow
@@ -263,7 +263,7 @@ all_users = db.child("users").get()
 To return just the keys at a particular path use the ```shallow()``` method.
 
 ```python
-all_user_ids = db.child("users").shallow().get()
+all_user_ids = db.child("users").shallow().get( user['idToken'])
 ```
 
 Note: ```shallow()``` can not be used in conjunction with any complex queries.
